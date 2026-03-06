@@ -17,7 +17,11 @@
 --glow-color:rgba(59,130,246,0.6);
 }
 
-*{box-sizing:border-box;margin:0;padding:0;}
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
 
 body{
 display:flex;
@@ -30,6 +34,7 @@ overflow:hidden;
 perspective:1500px;
 }
 
+/* stars */
 .stars{
 position:absolute;
 top:0;
@@ -44,6 +49,7 @@ background-size:550px 550px,350px 350px;
 opacity:0.3;
 }
 
+/* moon */
 .moon{
 position:absolute;
 top:40px;
@@ -67,6 +73,45 @@ background:#0d1627;
 border-radius:50%;
 }
 
+/* meteor */
+.shooting-star-container{
+position:absolute;
+width:100%;
+height:100%;
+top:0;
+left:0;
+transform:rotate(45deg);
+z-index:1;
+pointer-events:none;
+}
+
+.shooting-star{
+position:absolute;
+height:2px;
+width:0;
+background:linear-gradient(-45deg,#7aa2ff,rgba(0,0,255,0));
+filter:drop-shadow(0 0 6px #7aa2ff);
+animation:shooting 5s linear infinite;
+}
+
+@keyframes shooting{
+0%{
+transform:translateX(0);
+width:0;
+opacity:0;
+}
+10%{
+width:100px;
+opacity:1;
+}
+100%{
+transform:translateX(600px);
+width:0;
+opacity:0;
+}
+}
+
+/* audio button */
 .audio-control{
 position:fixed;
 top:20px;
@@ -110,6 +155,24 @@ from{transform:rotate(0deg);}
 to{transform:rotate(360deg);}
 }
 
+
+.audio-control a{
+display:flex;
+align-items:center;
+gap:10px;
+text-decoration:none;
+color:white;
+}
+
+.audio-control a:visited{
+color:white;
+}
+
+.audio-control a:hover{
+color:white;
+}
+
+/* envelope */
 .envelope-wrapper{
 position:relative;
 width:300px;
@@ -118,8 +181,8 @@ background-color:var(--envelope-blue);
 border-radius:0 0 15px 15px;
 cursor:pointer;
 z-index:10;
-transition:transform 0.4s ease,box-shadow 0.5s ease;
-box-shadow:0 10px 40px rgba(0,0,0,0.6),0 0 20px var(--glow-color);
+transition:transform .4s ease,box-shadow .5s ease;
+box-shadow:0 10px 40px rgba(0,0,0,.6),0 0 20px var(--glow-color);
 }
 
 .flap{
@@ -132,7 +195,7 @@ border-left:150px solid transparent;
 border-right:150px solid transparent;
 border-top:110px solid var(--envelope-light);
 transform-origin:top;
-transition:transform 0.6s ease-in-out;
+transition:transform .6s ease-in-out;
 z-index:6;
 }
 
@@ -155,7 +218,7 @@ height:180px;
 background:white;
 padding:25px 20px;
 border-radius:8px;
-transition:all 0.7s cubic-bezier(0.175,0.885,0.32,1.275);
+transition:all .7s cubic-bezier(.175,.885,.32,1.275);
 z-index:4;
 text-align:center;
 opacity:0;
@@ -170,7 +233,7 @@ font-size:1.8rem;
 
 .letter p{
 font-family:'Quicksand',sans-serif;
-font-size:0.85rem;
+font-size:.85rem;
 color:#334155;
 line-height:1.6;
 margin-top:10px;
@@ -179,6 +242,7 @@ max-height:140px;
 overflow-y:auto;
 }
 
+/* open */
 .envelope-wrapper.open .flap{
 transform:rotateX(180deg);
 z-index:1;
@@ -198,33 +262,34 @@ bottom:-60px;
 width:100%;
 text-align:center;
 color:white;
-font-size:0.7rem;
+font-size:.7rem;
 letter-spacing:3px;
 text-transform:uppercase;
 animation:breathe 2s infinite;
 }
 
 @keyframes breathe{
-0%,100%{opacity:0.4;}
+0%,100%{opacity:.4;}
 50%{opacity:1;}
 }
 
-@media (max-width:600px){
+/* responsive */
+@media(max-width:480px){
 
 .envelope-wrapper{
-width:240px;
-height:170px;
+width:260px;
+height:180px;
 }
 
 .flap{
-border-left:120px solid transparent;
-border-right:120px solid transparent;
-border-top:90px solid var(--envelope-light);
+border-left:130px solid transparent;
+border-right:130px solid transparent;
+border-top:100px solid var(--envelope-light);
 }
 
 .letter{
-height:160px;
-padding:20px 15px;
+width:92%;
+padding:20px;
 }
 
 .letter h1{
@@ -232,21 +297,39 @@ font-size:1.5rem;
 }
 
 .letter p{
-font-size:0.8rem;
-max-height:120px;
-}
-
-.audio-control{
-padding:8px 14px;
-font-size:0.7rem;
+font-size:.8rem;
 }
 
 .moon{
 width:50px;
 height:50px;
-top:25px;
-right:25px;
+right:30px;
 }
+
+.audio-control a{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:white;
+    padding:10px 18px;
+    border-radius:40px;
+}
+
+.audio-control:hover{
+background:rgba(255,255,255,0.2);
+transform:scale(1.05);
+}
+
+/* PERBAIKAN LINK */
+.audio-control a{
+display:flex;
+align-items:center;
+gap:10px;
+text-decoration:none;
+color:white;
+}
+
 }
 
 </style>
@@ -257,32 +340,47 @@ right:25px;
 <div class="stars"></div>
 <div class="moon"></div>
 
+<div class="shooting-star-container">
+<div class="shooting-star" style="top:10%;left:-100px;animation-delay:0s;"></div>
+<div class="shooting-star" style="top:30%;left:-200px;animation-delay:2s;"></div>
+<div class="shooting-star" style="top:60%;left:-150px;animation-delay:4s;"></div>
+<div class="shooting-star" style="top:80%;left:-250px;animation-delay:6s;"></div>
+</div>
+
 <div class="audio-control">
+<a href="https://open.spotify.com/track/2TEQvxxQabwLQMqWMg1qGu?si=BTyBNJWjTWCN4myuO_XWqQ" target="_blank">
+
 <svg class="music-icon" viewBox="0 0 24 24">
 <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
 </svg>
+
 <span>Play this song!</span>
-<a href="https://open.spotify.com/track/2TEQvxxQabwLQMqWMg1qGu" target="_blank" style="color:white;text-decoration:none;font-size:0.75rem;"></a>
+
+</a>
 </div>
 
-<div class="envelope-wrapper" id="envelope" onclick="this.classList.toggle('open')">
+
+
+<div class="envelope-wrapper" onclick="this.classList.toggle('open')">
 <div class="flap"></div>
 <div class="pocket"></div>
 
 <div class="letter">
 <h1>Woy Grania!</h1>
-
 <p>
-HAPPY BIRTHDAY GRAN!<br><br>
+HAPPY BIRTHDAY! <br><br>
 May your days always be filled with kindness and beauty.  
-May the universe be on your side, and may every step you take be made easier toward a bright future.  
+May the universe always be on your side and every step you take lead you to a bright future.  
 Keep growing, keep moving forward, and find your happiness.  
-Don’t forget to take care of your health.
-</p>
+Don't forget to take care of your health. <br><br>
+- worldwide beautiful "NANAS" 💙
 
+</p>
 </div>
 
-<div class="instruction">Klik Amplop untuk Membuka</div>
+<div class="instruction">
+Klik Amplop untuk Membuka
+</div>
 
 </div>
 
